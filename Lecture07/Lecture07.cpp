@@ -3,6 +3,39 @@
 #include <stdlib.h>
 #include <time.h>
 
+struct Node
+{
+    struct Node *UpNode;
+    struct Node *DownNode;
+
+    int myNum;
+    int piece = 0;
+};
+
+Node *root;
+
+int SetTree()
+{
+    root = (struct Node*)malloc(sizeof(struct Node));
+    root->myNum = 2047;
+    
+    Node* childL = (struct Node*)malloc(sizeof(struct Node));
+    Node* childR = (struct Node*)malloc(sizeof(struct Node));
+    childL->myNum = 1023;
+    childL->myNum = 1024+2047;
+    
+    childL->DownNode = 0;
+    childL->UpNode = 0;
+
+    childR->DownNode = 0;
+    childR->UpNode = 0;
+
+    root->DownNode = childL;
+    root->UpNode = childR;
+}
+
+
+
 // 초기화 함수
 void Initialize() {
     printf("게임 초기화 중...\n");
