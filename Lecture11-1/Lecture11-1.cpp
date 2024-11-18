@@ -11,7 +11,6 @@
 char screenBuffer[WIDTH * HEIGHT];
 char clearBuffer[WIDTH * HEIGHT];   // 클리어 버퍼 (검정 배경)
 
-
 int screenWidth = WIDTH;
 int screenHeight = HEIGHT;
 
