@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>17.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{d8ac4543-00d5-4a48-baec-abe503c9a763}</ProjectGuid>
-    <RootNamespace>Lecture111</RootNamespace>
+    <ProjectGuid>{d3031ebe-4c25-4f66-9a64-f407fb8c6b8e}</ProjectGuid>
+    <RootNamespace>Lecture12</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -127,7 +127,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Lecture11-1.c" />
+    <ClCompile Include="ElfMath.c" />
+    <ClCompile Include="Lecture 12.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ElfMath.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

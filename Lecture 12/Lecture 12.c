@@ -4,25 +4,31 @@
 #include <conio.h>  // _kbhit(), _getch() 함수 사용을 위한 헤더
 #include <windows.h>
 
+#include "ElfMath.h"
+
 #define WIDTH 60
 #define HEIGHT 25
 
 // 전역 변수로 스크린 버퍼 선언
-char screenBuffer[WIDTH * HEIGHT];
-char clearBuffer[WIDTH * HEIGHT];   // 클리어 버퍼 (검정 배경)
+char screenBuffer[WIDTH+1 * HEIGHT];
 
 int screenWidth = WIDTH;
 int screenHeight = HEIGHT;
 
-
-
-// 화면 초기화 함수
+// 게임 초기화 함수
 void Init() {
-    // 화면 버퍼를 빈 공백으로 초기화
-    for (int i = 0; i < screenWidth * screenHeight; i++) {
-        screenBuffer[i] = ' ';  // 검정 배경, 문자 없음
-        clearBuffer[i] = ' ';   // 클리어 버퍼도 같은 방식으로 초기화
+    // screenBuffer를 빈 공백으로 초기화
+    // (screenBuffer를 초기화하고 개행문자만 채우기)
+    for (int i = 0; i < HEIGHT; i++) {
+        // 한 줄에 WIDTH만큼 공백을 넣고, 그 다음에 개행문자를 추가
+        for (int j = 0; j < WIDTH; j++) {
+            screenBuffer[i * (WIDTH + 1) + j] = ' ';  // 공백으로 채우기
+        }
+        screenBuffer[i * (WIDTH + 1) + WIDTH] = '\n';  // 줄 바꿈 문자 삽입
     }
+
+    // screenBuffer의 내용을 한 번에 출력
+    printf("%s", screenBuffer);
 
     //커서 숨기기
     CONSOLE_CURSOR_INFO cursorInfo;
