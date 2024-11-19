@@ -11,24 +11,94 @@
 
 // 전역 변수로 스크린 버퍼 선언
 char screenBuffer[WIDTH+1 * HEIGHT];
-
 int screenWidth = WIDTH;
 int screenHeight = HEIGHT;
 
+// 화면 초기화 함수
+void ClearScreen() {
+    for (int i = 0; i < HEIGHT; i++) {
+        for (int j = 0; j < WIDTH; j++) {
+            screenBuffer[i * (WIDTH + 1) + j] = ' ';  // 화면 초기화
+        }
+        screenBuffer[i * (WIDTH + 1) + WIDTH] = '\n';  // 개행 문자
+    }
+   
+}
+
+// 두 점을 연결하는 직선을 그리는 함수 (브레젠햄 알고리즘)
+void DrawLine(int x1, int y1, int x2, int y2) {
+    int dx = abs(x2 - x1);
+    int dy = abs(y2 - y1);
+    int sx = (x1 < x2) ? 1 : -1;
+    int sy = (y1 < y2) ? 1 : -1;
+    int err = dx - dy;
+
+    while (1) {
+        if (x1 >= 0 && x1 < WIDTH && y1 >= 0 && y1 < HEIGHT) {
+            screenBuffer[y1 * (WIDTH + 1) + x1] = '*';  // 화면에 점을 찍음
+        }
+
+        if (x1 == x2 && y1 == y2) break;
+        int e2 = err * 2;
+        if (e2 > -dy) {
+            err -= dy;
+            x1 += sx;
+        }
+        if (e2 < dx) {
+            err += dx;
+            y1 += sy;
+        }
+    }
+}
+
+// 그네의 움직임을 구현하는 함수
+void Render(float angle) {
+
+    
+
+    Vector3 p1 = { 0.0f, 3.0f, 1.0f };
+
+    // 두 번째 관절 (회전된 첫 번째 선 끝점)
+    Vector3 p2 = { 0.0f, 3.0f, 1.0f };
+
+    // 세 번째 관절 (회전된 두 번째 선 끝점)
+    Vector3 p3 = { 0.0f, 3.0f, 1.0f };
+
+    // 회전 적용
+    // 첫번째 관절 회전
+    Matrix3x3 translation_w = translation_matrix(30, 0);
+    Matrix3x3 rotation = rotation_matrix(angle);// 회전 행렬 생성
+    Matrix3x3 translation = translation_matrix(0,3);
+    Matrix3x3 World = multiply_matrices(translation, rotation);
+    World = multiply_matrices(translation_w, World);
+    p1 = multiply_matrix_vector(World, p1);  // 점과 회전 행렬 곱셈 (Matrix3x3 * Vector3)
+
+    //두번째 관절 연산
+    World = multiply_matrices(World, translation);
+    World = multiply_matrices(World, rotation);
+    p2 = multiply_matrix_vector(World, p2);  // 점과 회전 행렬 곱셈 (Matrix3x3 * Vector3)
+
+    
+    // 세 번째 관절 회전
+    World = multiply_matrices(World, translation);
+    World = multiply_matrices(World, rotation);
+    p3 = multiply_matrix_vector(World, p3);  // 점과 회전 행렬 곱셈 (Matrix3x3 * Vector3)
+    
+    // 첫 번째 선 그리기
+    DrawLine(p1.x, p1.y, (int)p2.x, (int)p2.y);
+
+    // 두 번째 선 그리기
+    DrawLine((int)p2.x, (int)p2.y, (int)p3.x, (int)p3.y);
+
+    // 세 번째 선 그리기
+    DrawLine((int)30, (int)0, p1.x, p1.y);  // 마지막 선 (고정점으로 돌아가도록)
+}
+
+
 // 게임 초기화 함수
 void Init() {
-    // screenBuffer를 빈 공백으로 초기화
-    // (screenBuffer를 초기화하고 개행문자만 채우기)
-    for (int i = 0; i < HEIGHT; i++) {
-        // 한 줄에 WIDTH만큼 공백을 넣고, 그 다음에 개행문자를 추가
-        for (int j = 0; j < WIDTH; j++) {
-            screenBuffer[i * (WIDTH + 1) + j] = ' ';  // 공백으로 채우기
-        }
-        screenBuffer[i * (WIDTH + 1) + WIDTH] = '\n';  // 줄 바꿈 문자 삽입
-    }
-
-    // screenBuffer의 내용을 한 번에 출력
-    printf("%s", screenBuffer);
+    
+    ClearScreen();
 
     //커서 숨기기
     CONSOLE_CURSOR_INFO cursorInfo;
@@ -44,28 +114,16 @@ void Draw(char* Buffer) {
     SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 
     // 스크린 버퍼 출력
-    for (int y = 0; y < screenHeight; y++) {
-        for (int x = 0; x < screenWidth; x++) {
-            putchar(Buffer[y * screenWidth + x]);
-        }
-        putchar('\n');
-    }
+    printf("%s", screenBuffer);  // 화면 출력
 }
+
+float angle = 0;
 
 // 화면 업데이트 함수
 void Update() {
-    // "게임중" 텍스트를 화면 중앙에 출력
-    const char* message = "게임중";
-    int msgLen = 6;  // "게임중"의 길이
-
-    // 중앙 위치 계산
-    int startX = (screenWidth - msgLen) / 2;
-    int startY = screenHeight / 2;
-
-    // 화면 버퍼에 메시지 삽입 (노란색 텍스트로 표시)
-    for (int i = 0; i < msgLen; i++) {
-        screenBuffer[(startY * screenWidth) + (startX + i)] = message[i];
-    }
+    ClearScreen();
+    Render(angle);
+    angle += 10;
 }
 
 // 게임 루프

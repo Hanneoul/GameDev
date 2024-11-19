@@ -3,12 +3,14 @@
 
 #include <math.h>
 
-#pragma once
-typedef struct {
+
+typedef struct 
+{
     float m[3][3];  // 3x3 За·Д
 } Matrix3x3;
 
-typedef struct {
+typedef struct 
+{
     float x, y, z;
 } Vector3;
 
