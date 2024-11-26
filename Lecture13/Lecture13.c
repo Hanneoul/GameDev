@@ -23,12 +23,6 @@ typedef struct
 
 }GameObject_Line;
 
-
-
-
-float angle = 0;
-
-
 // 0: 입력없음
 // 99 : 게임 종료
 int Input()
@@ -54,28 +48,34 @@ void Update(GameObject_Line* obj, int objNum, int inputEvent)
 void Render(GameObject_Line* obj, int objNum, char* Buf, int width, int height)
 {
     Vector3 lineA, lineB;
+    Matrix3x3 world = identity_matrix();    //단위행렬로 초기화
+
+    lineB.x = 0;
+    lineB.y = 0;
 
     int i = 0;
-    for (i = 0; i < objNum; i++)
-    {
-        lineA.x = (int)obj[i].Line[0].x;
-        lineA.y = (int)obj[i].Line[0].y;
-        lineA.z = (int)1;
-        lineB.x = (int)obj[i].Line[1].x;
-        lineB.y = (int)obj[i].Line[1].y;
-        lineB.z = (int)1;
+   
+        obj[i].Position.x = lineB.x;
+        obj[i].Position.y = lineB.y;
 
+        lineA.x = obj[i].Line[0].x;
+        lineA.y = obj[i].Line[0].y;
+        lineA.z = 1;
+        lineB.x = obj[i].Line[1].x;
+        lineB.y = obj[i].Line[1].y;
+        lineB.z = 1;
+
+        Matrix3x3 scale = scale_matrix(obj[i].Scale.x, obj[i].Scale.y); // 크기조정 행렬 적용
         Matrix3x3 rotation = rotation_matrix(obj[i].Rotation);// 회전 행렬 생성
         Matrix3x3 translation = translation_matrix(obj[i].Position.x, obj[i].Position.y); // 이동 행렬 적용
-        Matrix3x3 scale = scale_matrix(obj[i].Scale.x, obj[i].Scale.y); // 이동 행렬 적용
-        Matrix3x3 world = multiply_matrices(scale, rotation);
+        
+        world = multiply_matrices(scale, world);
+        world = multiply_matrices(rotation, world);
         world = multiply_matrices(translation, world);
         lineA = multiply_matrix_vector(world, lineA);  // 점과 회전 행렬 곱셈 (Matrix3x3 * Vector3)
         lineB = multiply_matrix_vector(world, lineB);  // 점과 회전 행렬 곱셈 (Matrix3x3 * Vector3)
 
-        DrawLine((int)lineA.x, (int)lineA.y, (int)lineB.x, (int)lineB.y, Buf, width, height);
-    }
-
+        Elf2DDrawLine((int)lineA.x, (int)lineA.y, (int)lineB.x, (int)lineB.y, Buf, width, height);
  
 
 }
@@ -94,9 +94,9 @@ int main() {
     GameObject_Line LineObj[3];
 
     // 게임 초기화
-    InitScreen();
-    ClearScreen(screenBuffer, screenWidth, screenHeight);
-    Draw(screenBuffer);
+    Elf2DInitScreen();
+    Elf2DClearScreen(screenBuffer, screenWidth, screenHeight);
+    Elf2DDrawBuffer(screenBuffer);
 
     //객체 초기화(관절 3개)
     int i = 0;
@@ -132,6 +132,7 @@ int main() {
     LineObj[2].Scale.x = 2;
     LineObj[2].Scale.y = 2;
 
+    
 
 
     // 프레임 타이머
@@ -141,7 +142,7 @@ int main() {
         
         int event = Input();
         //입력 계산
-        if (event == 0)
+        if (event == 99)
         {
             break;
         }
@@ -153,12 +154,12 @@ int main() {
         Render(LineObj, 3, screenBuffer, screenWidth, screenHeight);
 
         // 화면 그리기
-        Draw(screenBuffer);
+        Elf2DDrawBuffer(screenBuffer);
         
         // 현재 시간 계산
         clock_t now = clock();
         double deltaTime = (double)(now - lastTime) / CLOCKS_PER_SEC * 1000.0;
-        Sleep(frameTime - deltaTime);
+        Elf2DSleep(frameTime - deltaTime);
         lastTime = now;
     }
 

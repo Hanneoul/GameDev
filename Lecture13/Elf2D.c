@@ -1,8 +1,9 @@
+#include <stdio.h>
 #include <Windows.h>
 #include "Elf2D.h"
 
 
-void InitScreen()
+void Elf2DInitScreen()
 {
     //커서 숨기기
     CONSOLE_CURSOR_INFO cursorInfo;
@@ -12,7 +13,7 @@ void InitScreen()
 } 
 
 // 화면 초기화 함수
-void ClearScreen(char* Buffer, int width, int height) 
+void Elf2DClearScreen(char* Buffer, int width, int height)
 {
     for (int i = 0; i < height; i++) 
     {
@@ -22,11 +23,12 @@ void ClearScreen(char* Buffer, int width, int height)
         }
         Buffer[i * (width + 1) + width] = '\n';  // 개행 문자
     }
+    Buffer[(width + 1) * height - 1] = '\0';  // 개행 문자
 
 }
 
 // 스크린버퍼를 이용하여 화면을 그리는 함수
-void DrawBuffer(char* Buffer) 
+void Elf2DDrawBuffer(char* Buffer)
 {
     //0,0으로 이동
     COORD coord = { 0, 0 };  // 좌표 (0, 0)
@@ -37,7 +39,7 @@ void DrawBuffer(char* Buffer)
 }
 
 // 두 점을 연결하는 직선을 그리는 함수 (브레젠햄 알고리즘)
-void DrawLine(int x1, int y1, int x2, int y2, char* Buffer, int width, int height) 
+void Elf2DDrawLine(int x1, int y1, int x2, int y2, char* Buffer, int width, int height)
 {
     int dx = abs(x2 - x1);
     int dy = abs(y2 - y1);
@@ -66,4 +68,10 @@ void DrawLine(int x1, int y1, int x2, int y2, char* Buffer, int width, int heigh
             y1 += sy;
         }
     }
+}
+
+
+void Elf2DSleep(int ms)
+{
+    Sleep(ms);
 }
