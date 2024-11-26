@@ -10,7 +10,7 @@
 #define HEIGHT 25
 
 // 전역 변수로 스크린 버퍼 선언
-char screenBuffer[WIDTH+1 * HEIGHT];
+char screenBuffer[(WIDTH+1) * HEIGHT];
 int screenWidth = WIDTH;
 int screenHeight = HEIGHT;
 

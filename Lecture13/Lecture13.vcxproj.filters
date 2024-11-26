@@ -15,7 +15,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Lecture 12.c">
+    <ClCompile Include="Lecture13.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Elf2D.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="ElfMath.c">
@@ -24,6 +27,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ElfMath.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Elf2D.h">
       <Filter>소스 파일</Filter>
     </ClInclude>
   </ItemGroup>
