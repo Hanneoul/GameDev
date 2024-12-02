@@ -127,7 +127,19 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ElfObject.c" />
+    <ClCompile Include="ElfTime.c" />
+    <ClCompile Include="Elf2D.c" />
+    <ClCompile Include="ElfMath.c" />
     <ClCompile Include="GameDev.cpp" />
+    <ClCompile Include="main.c" />
+    <ClCompile Include="TestBuffer.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Elf2D.h" />
+    <ClInclude Include="ElfMath.h" />
+    <ClInclude Include="ElfObject.h" />
+    <ClInclude Include="ElfTime.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

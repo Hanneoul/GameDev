@@ -15,8 +15,40 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="GameDev.cpp">
+    <ClCompile Include="Elf2D.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="ElfMath.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="main.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="GameDev.cpp">
+      <Filter>헤더 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="TestBuffer.cpp">
+      <Filter>헤더 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="ElfTime.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="ElfObject.c">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Elf2D.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ElfMath.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ElfTime.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="ElfObject.h">
+      <Filter>소스 파일</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
