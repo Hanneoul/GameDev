@@ -37,4 +37,21 @@ Matrix3x3 multiply_matrices(Matrix3x3 a, Matrix3x3 b);
 //Çà·Ä*º¤ÅÍ °ö¼À
 Vector3 multiply_matrix_vector(Matrix3x3 mat, Vector3 v);
 
+//Çà·Ä*º¤ÅÍ °ö¼À
+Vector2 multiply_matrix_vector2(Matrix3x3 mat, Vector2 v);
+
+
+// ÀÌµ¿ (translation)
+Vector2 translate(Vector2 position, Vector2 translation);
+
+
+// È¸Àü (Rotation)
+Vector2 rotate(Vector2 position, float angle);
+
+
+// Å©±â Á¶Á¤ (Scaling)
+Vector2 scale(Vector2 position, float scaleX, float scaleY);
+
 #endif
+
+

@@ -79,3 +79,46 @@ Vector3 multiply_matrix_vector(Matrix3x3 mat, Vector3 v)
     result.z = mat.m[2][0] * v.x + mat.m[2][1] * v.y + mat.m[2][2] * v.z;
     return result;
 }
+
+// 행렬과 벡터 곱셈 (동차 좌표를 고려한 2D 변환)
+Vector2 multiply_matrix_vector2(Matrix3x3 mat, Vector2 v)
+{
+    Vector2 result;
+
+    // 동차 좌표 (x, y, 1)로 확장된 벡터와 행렬 곱셈
+    result.x = mat.m[0][0] * v.x + mat.m[0][1] * v.y + mat.m[0][2] * 1.0f;
+    result.y = mat.m[1][0] * v.x + mat.m[1][1] * v.y + mat.m[1][2] * 1.0f;
+
+    return result;
+}
+
+
+//행렬 안쓰실 분들은 이거 쓰세요
+
+// 이동 (Translation)
+Vector2 translate(Vector2 position, Vector2 translation)
+{
+    Vector2 result;
+    result.x = position.x + translation.x;
+    result.y = position.y + translation.y;
+    return result;
+}
+
+// 회전 (Rotation)
+Vector2 rotate(Vector2 position, float angle)
+{
+    float radians = angle * (3.14159265359f / 180.0f);  // 각도를 라디안으로 변환
+    Vector2 result;
+    result.x = position.x * cosf(radians) - position.y * sinf(radians);
+    result.y = position.x * sinf(radians) + position.y * cosf(radians);
+    return result;
+}
+
+// 크기 조정 (Scaling)
+Vector2 scale(Vector2 position, float scaleX, float scaleY)
+{
+    Vector2 result;
+    result.x = position.x * scaleX;
+    result.y = position.y * scaleY;
+    return result;
+}

@@ -1,14 +1,10 @@
-﻿
-
-#include "ElfMath.h"
+﻿#include "ElfMath.h"
 #include "Elf2D.h"
 #include "ElfTime.h"
 #include "ElfObject.h"
 
-
 #define WIDTH 60
 #define HEIGHT 25
-
 
 void Initialize(GameObject_Line* obj, int objNum)
 {

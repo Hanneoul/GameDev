@@ -3,25 +3,7 @@
 
 #include "ElfMath.h"
 
-//행렬 사용할 학생들은 이걸쓰면 편합니다.
-typedef struct
-{
-    //Transform
-    Vector2 Position;
-    float Rotation;
-    Vector2 Scale;
-
-    //Geometry
-    Vector2 Line[2];
-
-    //픽셀채울 글자
-    char* Symbol;
-
-    Matrix3x3 ModelMatrix;
-
-}GameObjectM_Line;
-
-//행렬 사용 안할 학생들은 이걸 쓰세용
+//게임 오브젝트
 typedef struct
 {
     //Transform
