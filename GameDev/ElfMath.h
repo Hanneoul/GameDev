@@ -23,7 +23,7 @@ typedef struct
 Matrix3x3 identity_matrix();
 
 //捞悼青纺(Translation Matrix) 积己
-Matrix3x3 translation_matrix(float dx, float dy);
+Matrix3x3 translation_matrix(float dx, float dy); 
 
 //雀傈青纺(Rotation Matrix) 积己
 Matrix3x3 rotation_matrix(float theta);
